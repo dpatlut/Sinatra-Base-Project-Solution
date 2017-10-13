@@ -1,24 +1,37 @@
 require "sinatra"
 require "sinatra/activerecord"
 
-set :database, {adapter: 'postgresql'}
+set :database, {adapter: 'postgresql', database: 'foo'}
+
+class Cat < ActiveRecord::Base
+	belongs_to :owner
+end
+
+class Owner < ActiveRecord::Base
+	has_many :cats
+end
+
 
 get '/' do
 	erb :index
 end
 
-get '/users' do
-	erb :users
+get '/cats' do
+	@cats = Cat.all()
+	puts @cats
+	erb :cats
 end
 
-get '/users/:id' do
-	"Hello NYCDA"
+get '/cats/:id' do
+	@cat = Cat.find(params[:id]).owner.name
+	return @cat
 end
 
-get '/polls' do
-	erb :polls
+get '/owners' do
+	@owners
 end
 
-get '/polls/:id' do
-	"Hello NYCDA"
+get '/owners/:id' do
+	@owner = Owner.find(params[:id])
+	return @owner
 end
