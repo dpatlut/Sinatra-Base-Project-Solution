@@ -8,7 +8,7 @@ get '/' do
 end
 
 get '/users' do
-	"Hello NYCDA"
+	erb :users
 end
 
 get '/users/:id' do
@@ -16,7 +16,7 @@ get '/users/:id' do
 end
 
 get '/polls' do
-	"Hello NYCDA"
+	erb :polls
 end
 
 get '/polls/:id' do
